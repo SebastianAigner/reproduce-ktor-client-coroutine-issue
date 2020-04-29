@@ -11,8 +11,7 @@ fun main() {
 
     println("Entering blocking websocket part...")
     runBlocking {
-        client.webSocket("wss://echo.websocket.org") {
-            outgoing.send(Frame.Text("PING"))
+        client.webSocket(method = HttpMethod.Get, host = "0.0.0.0", port = 9090, path = "/chat") {
             val frame = incoming.receive()
             if(frame is Frame.Text) {
                 println("RECV: " + frame.readText())
